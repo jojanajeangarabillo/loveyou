@@ -8,34 +8,38 @@
       margin: 0;
       padding: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      background: radial-gradient(circle at center, #ffafbd, #ffc3a0);
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
-      font-family: 'Arial', sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
     .text {
-      font-size: 4rem;
+      font-size: 5rem;
       font-weight: bold;
-      color: white;
-      text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 40px #f9d423;
-      animation: pulse 2s infinite, float 6s ease-in-out infinite;
+      color: #fff;
+      position: relative;
+      text-align: center;
+      animation: glow 3s ease-in-out infinite, pop 2s ease-in-out infinite;
     }
 
-    @keyframes pulse {
-      0% { text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 40px #f9d423; }
-      50% { text-shadow: 0 0 20px #ff4e50, 0 0 30px #ff4e50, 0 0 60px #f9d423; }
-      100% { text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 40px #f9d423; }
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 30px #f9d423;
+      }
+      50% {
+        text-shadow: 0 0 20px #ff6f91, 0 0 40px #ff6f91, 0 0 60px #f9d423;
+      }
     }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+    @keyframes pop {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
-    .hearts {
+    .floating {
       position: absolute;
       top: 0;
       left: 0;
@@ -45,48 +49,57 @@
       overflow: hidden;
     }
 
+    .kiss {
+      position: absolute;
+      color: #ff69b4;
+      font-size: 2rem;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.7;
+    }
+
     .heart {
       position: absolute;
-      color: #ff4e50;
+      color: red;
       font-size: 2rem;
-      animation: floatUp 5s linear infinite;
+      animation: floatUp 7s linear infinite;
       opacity: 0.6;
     }
 
     @keyframes floatUp {
       0% {
-        transform: translateY(100%);
+        transform: translateY(100vh) scale(0.5) rotate(0deg);
         opacity: 0;
       }
       50% {
         opacity: 1;
       }
       100% {
-        transform: translateY(-100%);
+        transform: translateY(-10vh) scale(1.2) rotate(360deg);
         opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <div class="text">I LOVE YOU LOVE</div>
-  <div class="hearts" id="hearts"></div>
+  <div class="text">💋 I LOVE YOU MY LOVE 💋</div>
+  <div class="floating" id="floating"></div>
 
   <script>
-    const heartsContainer = document.getElementById('hearts');
+    const floating = document.getElementById('floating');
 
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = `${Math.random() * 100}%`;
-      heart.style.fontSize = `${Math.random() * 2 + 1}rem`;
-      heart.style.animationDuration = `${Math.random() * 3 + 3}s`;
-      heart.textContent = '❤️';
-      heartsContainer.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+    function createFloatingElement(symbol, className) {
+      const el = document.createElement('div');
+      el.classList.add(className);
+      el.textContent = symbol;
+      el.style.left = `${Math.random() * 100}%`;
+      el.style.fontSize = `${Math.random() * 2 + 1}rem`;
+      el.style.animationDuration = `${Math.random() * 3 + 4}s`;
+      floating.appendChild(el);
+      setTimeout(() => el.remove(), 7000);
     }
 
-    setInterval(createHeart, 500);
+    setInterval(() => createFloatingElement('💋', 'kiss'), 400);
+    setInterval(() => createFloatingElement('❤️', 'heart'), 600);
   </script>
 </body>
 </html>
