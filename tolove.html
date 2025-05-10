@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>I LOVE YOU</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .text {
+      font-size: 4rem;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 40px #f9d423;
+      animation: pulse 2s infinite, float 6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 40px #f9d423; }
+      50% { text-shadow: 0 0 20px #ff4e50, 0 0 30px #ff4e50, 0 0 60px #f9d423; }
+      100% { text-shadow: 0 0 10px #ff4e50, 0 0 20px #ff4e50, 0 0 40px #f9d423; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hearts {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff4e50;
+      font-size: 2rem;
+      animation: floatUp 5s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="text">I LOVE YOU</div>
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const heartsContainer = document.getElementById('hearts');
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.fontSize = `${Math.random() * 2 + 1}rem`;
+      heart.style.animationDuration = `${Math.random() * 3 + 3}s`;
+      heart.textContent = '❤️';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 500);
+  </script>
+</body>
+</html>
